@@ -5,6 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { generateCarImageUrl } from "@/utils";
 
 interface CarDetailsProps {
   isOpen: boolean;
@@ -39,7 +40,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                 LeaveFrom="opacity-100 scale-100"
                 LeaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto transform rounded-2xl bg-white text-left shadow-xl transition-all flex flex-col gap-5">
+                <Dialog.Panel className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto transform rounded-2xl bg-white p-6 text-left shadow-xl transition-all flex flex-col gap-5 ">
                   <button
                     type="button"
                     onClick={closeModal}
@@ -56,7 +57,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                   <div className="flex flex-col flex-1 gap-3">
                     <div className="relative w-full h-40 bg-center bg-cover rounded-lg bg-pattern">
                       <Image
-                        src="/hero.png"
+                        src={generateCarImageUrl(car, "angle")}
                         alt="car model"
                         fill
                         priority
@@ -66,7 +67,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                     <div className="flex gap-3">
                       <div className="relative flex-1 w-full h-24 rounded-lg bg-primary-blue-100">
                         <Image
-                          src="/hero.png"
+                          src={generateCarImageUrl(car, "29")}
                           alt="car model"
                           fill
                           priority
@@ -75,7 +76,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                       </div>
                       <div className="relative flex-1 w-full h-24 rounded-lg bg-primary-blue-100">
                         <Image
-                          src="/hero.png"
+                          src={generateCarImageUrl(car, "33")}
                           alt="car model"
                           fill
                           priority
@@ -84,7 +85,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                       </div>
                       <div className="relative flex-1 w-full h-24 rounded-lg bg-primary-blue-100">
                         <Image
-                          src="/hero.png"
+                          src={generateCarImageUrl(car, "13")}
                           alt="car model"
                           fill
                           priority
@@ -93,7 +94,28 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col flex-1 gap-2"></div>
+                  <div className="flex flex-col flex-1 gap-2">
+                    <h2 className="text-xl font-semibold capitalize">
+                      {car.make} {car.model}
+                    </h2>
+                    <div className="flex flex-wrap gap-4 mt-3 ">
+                      {/* this is how to map over an object from types interface CarProps */}
+                      {Object.entries(car).map(([key, value]) => (
+                        <div
+                          key={key}
+                          className="flex justify-between w-full gap-5 text-right"
+                        >
+                          <h4 className="capitalize text-grey">
+                            {/* removes the _ underscore */}
+                            {key.split("_").join(" ")}
+                          </h4>
+                          <p className="font-semibold text-black-100">
+                            {value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
