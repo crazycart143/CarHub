@@ -48,3 +48,15 @@ export interface FilterProps {
   limit: number;
   model: string;
 }
+
+export interface OptionProps {
+  title: string;
+  value: string;
+}
+
+// Props within a props
+// it means options will have title and value based from OptionProps interface above
+export interface CustomFilterProps {
+  title: string;
+  options: OptionProps[];
+}

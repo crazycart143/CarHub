@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Combobox, Transition } from "@headlessui/react";
 import { fetchCars } from "@/utils";
 import CarCard from "@/components/CarCard";
+import { fuels, yearsOfProduction } from "@/constants";
 
 // you can immediately destructure searchParams props in any page.tsx
 export default async function Home({ searchParams }) {
@@ -29,8 +30,8 @@ export default async function Home({ searchParams }) {
         <div id="searchbar" className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <CustomFilter title="fuel" />
-            <CustomFilter title="year" />
+            <CustomFilter title="fuel" options={fuels} />
+            <CustomFilter title="year" options={yearsOfProduction} />
           </div>
         </div>
         {!isDataEmpty ? (
