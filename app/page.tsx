@@ -5,8 +5,15 @@ import { Combobox, Transition } from "@headlessui/react";
 import { fetchCars } from "@/utils";
 import CarCard from "@/components/CarCard";
 
-export default async function Home() {
-  const allCars = await fetchCars();
+// you can immediately destructure searchParams props in any page.tsx
+export default async function Home({ searchParams }) {
+  const allCars = await fetchCars({
+    manufacturer: searchParams.manufacturer || "",
+    year: searchParams.year || 2022,
+    fuel: searchParams.fuel || "",
+    limit: searchParams.limit || 10,
+    model: searchParams.model || "",
+  });
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
@@ -19,7 +26,7 @@ export default async function Home() {
           <h1 className="text-4xl font-extrabold"> Car Catalogue</h1>
           <p>Explore the cars you might like</p>
         </div>
-        <div className="home__filters">
+        <div id="searchbar" className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
             <CustomFilter title="fuel" />
