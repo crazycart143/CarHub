@@ -5,6 +5,7 @@ import { Combobox, Transition } from "@headlessui/react";
 import { fetchCars } from "@/utils";
 import CarCard from "@/components/CarCard";
 import { fuels, yearsOfProduction } from "@/constants";
+import ShowMore from "@/components/ShowMore";
 
 // you can immediately destructure searchParams props in any page.tsx
 export default async function Home({ searchParams }) {
@@ -41,6 +42,10 @@ export default async function Home({ searchParams }) {
                 <CarCard car={car} />
               ))}
             </div>
+            <ShowMore
+              pageNumber={(searchParams.limit || 10) / 10}
+              isNext={(searchParams.limit || 10) > allCars.length}
+            />
           </section>
         ) : (
           <div className="home__error-container">
